@@ -359,6 +359,12 @@ resource "aws_security_group" "web" {
     protocol = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
   tags = "${merge(
     local.common_tags,
     map(
@@ -406,6 +412,12 @@ resource "aws_security_group" "app" {
     to_port = -1
     protocol = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["${var.vpc_cidr}"]
   }
   tags = "${merge(
     local.common_tags,
@@ -455,6 +467,12 @@ resource "aws_security_group" "db" {
     protocol = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
   tags = "${merge(
     local.common_tags,
     map(
@@ -503,6 +521,12 @@ resource "aws_security_group" "cache" {
     protocol = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
   tags = "${merge(
     local.common_tags,
     map(
@@ -550,6 +574,12 @@ resource "aws_security_group" "queue" {
     to_port = -1
     protocol = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["${var.vpc_cidr}"]
   }
   tags = "${merge(
     local.common_tags,
