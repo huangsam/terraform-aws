@@ -5,8 +5,5 @@
 *.tfstate
 *.tfstate.*
 
-# .tfvars files
-*.tfvars
-
 # Project specific
 .DS_Store
