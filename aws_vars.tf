@@ -102,33 +102,3 @@ variable "amazon_ami_regions" {
     eu_central_1 = "ami-5652ce39"
   }
 }
-
-variable "debian_ami_regions" {
-  description = "Debian 9 AMI by region"
-  type = "map"
-  default = {
-    us_west_1 = "ami-a126c2c2"
-    us_east_1 = "ami-8c9bdaf3"
-    eu_central_1 = "ami-9025167b"
-  }
-}
-
-variable "centos_ami_regions" {
-  description = "CentOS 7 AMI by region"
-  type = "map"
-  default = {
-    us_west_1 = "ami-4826c22b"
-    us_east_1 = "ami-9887c6e7"
-    eu_central_1 = "ami-dd3c0f36"
-  }
-}
-
-variable "ubuntu_ami_regions" {
-  description = "Ubuntu 18.04 LTS AMI by region"
-  type = "map"
-  default = {
-    us_west_1 = "ami-d7b355b4"
-    us_east_1 = "ami-5cc39523"
-    eu_central_1 = "ami-3c635cd7"
-  }
-}
