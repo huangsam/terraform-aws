@@ -1,11 +1,10 @@
 # terraform-aws
 
-Apply Terraform to AWS provider
+This is a playground for learning AWS and Terraform tooling.
 
-Learning how to use Terraform and AWS as I am developing a custom `vpc`
-module that is similar to the following module:
+## VPC module
 
-https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/1.37.0
+The `vpc` module was inspired by a [similar initiative from the Terraform maintainers](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/1.37.0).
 
 The custom `vpc` module creates the following:
 
