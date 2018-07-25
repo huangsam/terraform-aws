@@ -49,7 +49,7 @@ resource "aws_route_table" "web" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_rt_names[0]}"
+      "Name", "${local.name_prefix}-${var.vpc_rt_names["web"]}"
     )
   )}"
 }
@@ -80,12 +80,12 @@ resource "aws_route_table_association" "public_2" {
  * http://blog.kaliloudiaby.com/index.php/terraform-to-provision-vpc-on-aws-amazon-web-services/
  */
 
-resource "aws_route_table" "private_1" {
+resource "aws_route_table" "nat_1" {
   vpc_id = "${aws_vpc.main.id}"
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_rt_names[1]}"
+      "Name", "${local.name_prefix}-${var.vpc_rt_names["nat_1"]}"
     )
   )}"
 }
@@ -96,7 +96,7 @@ resource "aws_eip" "nat_1" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_eip_names[0]}"
+      "Name", "${local.name_prefix}-${var.vpc_eip_names["nat_1"]}"
     )
   )}"
 }
@@ -108,28 +108,28 @@ resource "aws_nat_gateway" "nat_1" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_nat_names[0]}"
+      "Name", "${local.name_prefix}-${var.vpc_nat_names["nat_1"]}"
     )
   )}"
 }
 
-resource "aws_route" "private_1" {
-  route_table_id  = "${aws_route_table.private_1.id}"
+resource "aws_route" "nat_1" {
+  route_table_id  = "${aws_route_table.nat_1.id}"
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id = "${aws_nat_gateway.nat_1.id}"
 }
 
-resource "aws_route_table_association" "private_1" {
+resource "aws_route_table_association" "nat_1" {
   subnet_id      = "${aws_subnet.private_1.id}"
-  route_table_id = "${aws_route_table.private_1.id}"
+  route_table_id = "${aws_route_table.nat_1.id}"
 }
 
-resource "aws_route_table" "private_2" {
+resource "aws_route_table" "nat_2" {
   vpc_id = "${aws_vpc.main.id}"
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_rt_names[2]}"
+      "Name", "${local.name_prefix}-${var.vpc_rt_names["nat_2"]}"
     )
   )}"
 }
@@ -140,7 +140,7 @@ resource "aws_eip" "nat_2" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_eip_names[1]}"
+      "Name", "${local.name_prefix}-${var.vpc_eip_names["nat_2"]}"
     )
   )}"
 }
@@ -152,20 +152,20 @@ resource "aws_nat_gateway" "nat_2" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_nat_names[1]}"
+      "Name", "${local.name_prefix}-${var.vpc_nat_names["nat_2"]}"
     )
   )}"
 }
 
-resource "aws_route" "private_2" {
-  route_table_id  = "${aws_route_table.private_2.id}"
+resource "aws_route" "nat_2" {
+  route_table_id  = "${aws_route_table.nat_2.id}"
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id = "${aws_nat_gateway.nat_2.id}"
 }
 
-resource "aws_route_table_association" "private_2" {
+resource "aws_route_table_association" "nat_2" {
   subnet_id      = "${aws_subnet.private_2.id}"
-  route_table_id = "${aws_route_table.private_2.id}"
+  route_table_id = "${aws_route_table.nat_2.id}"
 }
 
 /*
@@ -184,7 +184,7 @@ resource "aws_subnet" "public_1" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_subnet_names[0]}"
+      "Name", "${local.name_prefix}-${var.vpc_subnet_names["public_1"]}"
     )
   )}"
 }
@@ -197,7 +197,7 @@ resource "aws_subnet" "private_1" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_subnet_names[1]}"
+      "Name", "${local.name_prefix}-${var.vpc_subnet_names["private_1"]}"
     )
   )}"
 }
@@ -210,7 +210,7 @@ resource "aws_subnet" "public_2" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_subnet_names[2]}"
+      "Name", "${local.name_prefix}-${var.vpc_subnet_names["public_2"]}"
     )
   )}"
 }
@@ -223,7 +223,7 @@ resource "aws_subnet" "private_2" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_subnet_names[3]}"
+      "Name", "${local.name_prefix}-${var.vpc_subnet_names["private_2"]}"
     )
   )}"
 }
@@ -263,7 +263,7 @@ resource "aws_network_acl" "simple" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_nacl_names[0]}"
+      "Name", "${local.name_prefix}-${var.vpc_nacl_names["simple"]}"
     )
   )}"
 }
@@ -285,7 +285,7 @@ resource "aws_network_acl" "simple" {
 
 resource "aws_security_group" "bastion" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names[0]}"
+  name = "${local.name_prefix}-${var.vpc_sg_names["bastion"]}"
   description = "Security group for bastions"
   ingress {
     from_port = 22
@@ -308,14 +308,14 @@ resource "aws_security_group" "bastion" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names[0]}"
+      "Name", "${local.name_prefix}-${var.vpc_sg_names["bastion"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "web" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names[1]}"
+  name = "${local.name_prefix}-${var.vpc_sg_names["web"]}"
   description = "Security group for web servers"
   ingress {
     from_port = 22
@@ -368,14 +368,14 @@ resource "aws_security_group" "web" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names[1]}"
+      "Name", "${local.name_prefix}-${var.vpc_sg_names["web"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "app" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names[2]}"
+  name = "${local.name_prefix}-${var.vpc_sg_names["app"]}"
   description = "Security group for applications"
   ingress {
     from_port = 22
@@ -422,14 +422,14 @@ resource "aws_security_group" "app" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names[2]}"
+      "Name", "${local.name_prefix}-${var.vpc_sg_names["app"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "db" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names[3]}"
+  name = "${local.name_prefix}-${var.vpc_sg_names["db"]}"
   description = "Security group for databases"
   ingress {
     from_port = 22
@@ -476,14 +476,14 @@ resource "aws_security_group" "db" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names[3]}"
+      "Name", "${local.name_prefix}-${var.vpc_sg_names["db"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "cache" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names[4]}"
+  name = "${local.name_prefix}-${var.vpc_sg_names["cache"]}"
   description = "Security group for caches"
   ingress {
     from_port = 22
@@ -530,14 +530,14 @@ resource "aws_security_group" "cache" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names[4]}"
+      "Name", "${local.name_prefix}-${var.vpc_sg_names["cache"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "queue" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names[5]}"
+  name = "${local.name_prefix}-${var.vpc_sg_names["queue"]}"
   description = "Security group for queues"
   ingress {
     from_port = 22
@@ -584,7 +584,7 @@ resource "aws_security_group" "queue" {
   tags = "${merge(
     local.common_tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names[5]}"
+      "Name", "${local.name_prefix}-${var.vpc_sg_names["queue"]}"
     )
   )}"
 }
