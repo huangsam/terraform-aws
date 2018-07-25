@@ -12,7 +12,12 @@ The custom `vpc` module creates the following:
 - Internet gateway
 - NAT gateways for AZ 1 and AZ 2
 - Private subnet and public subnet for AZ 1 and AZ 2
-- Common security groups for most EC2 use cases
 - Route tables for private subnets
 - Route table for public subnets
 - Simple network ACL for all subnets
+- Security groups for common EC2 use cases
+
+**Note:** The VPC is currently configured to support exactly two
+availability zones. This works fine for personal pet projects but this
+may not be enough for enterprise use cases. Consider adding a Virtual Private
+Gateway and additional subnets if needed.
