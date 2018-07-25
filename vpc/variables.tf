@@ -23,6 +23,7 @@ variable "environment" {
 
 variable "name_prefix" {
   description = "Name of prefix applied to resource names"
+  default = ""
 }
 
 /*
