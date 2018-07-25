@@ -14,4 +14,6 @@ The custom `vpc` module creates the following:
 - NAT gateways for AZ 1 and AZ 2
 - Private subnet and public subnet for AZ 1 and AZ 2
 - Common security groups for most EC2 use cases
-- Connects the pieces together with route tables and network ACLs
+- Route tables for private subnets
+- Route table for public subnets
+- Simple network ACL for all subnets
