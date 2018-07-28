@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 awscli = "*"
+"boto3" = "*"
 
 [dev-packages]
 
