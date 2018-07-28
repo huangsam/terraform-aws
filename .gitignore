@@ -5,5 +5,8 @@
 *.tfstate
 *.tfstate.*
 
+# Backend configuration
+backend.ini
+
 # Project specific
 .DS_Store
