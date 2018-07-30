@@ -26,11 +26,13 @@ Gateway and additional subnets if needed.
 
 ## Usage
 
-These Terraform artifacts ultimately publish their state to S3 using the storage backend configuration from `backend.ini`. An example `backend.ini.example` was created for people to create their own settings.
+These Terraform artifacts ultimately publish their state to S3 using the storage backend configuration from `backend.ini`. An example `backend.ini.example` was created to help people create their own settings.
 
-After populating the settings properly, then initialize the workspace:
+After populating the settings properly, go ahead and initialize the workspace:
 
     terraform init -backend-config=backend.ini
+
+**Note:** Please ensure that `~/.aws` has the proper credentials if you plan to leave out the `access_key` and `secret_key` parameters. Also ensure that your user is authorized to perform list, get and put operations on the S3 bucket of your choice.
 
 Then the Terraform resources can be deployed:
 
