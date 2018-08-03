@@ -3,7 +3,7 @@ clean-terra:
 clean-config:
 	rm -f backend.ini
 	rm -f terraform.tfvars
-config: clean-config clean-terra
+config: clean-config
 	cp config/template.tfvars terraform.tfvars
 	cp config/template.ini backend.ini
 init: clean-terra
