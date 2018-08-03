@@ -32,7 +32,11 @@ First get the settings placed in the working directory:
 
 After populating the settings properly, go ahead and initialize the workspace:
 
-    make deploy
+    make apply
+
+After you verify that it works, feel free to remove the resources:
+
+    make destroy
 
 ### Side Note
 
