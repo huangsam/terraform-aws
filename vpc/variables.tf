@@ -101,27 +101,3 @@ variable "vpc_sg_names" {
     queue = "sg-queue"
   }
 }
-
-/*
- * EC2 AMI mappings
- *
- * A provider publishes the same AMI distribution to multiple
- * regions. As a result, the AMI has a different identifier in
- * each region. And it can actually change when the version of
- * the OS changes.
- *
- * One thing that we can consider is to build
- * our own custom AMI images. This can be done with Hashicorp
- * Packer or by snapshotting EC2 images. Will have to look into
- * this more in further detail.
- */
-
-variable "ec2_amazon_ami" {
-  description = "Amazon Linux 2018.03 AMI by region"
-  type = "map"
-  default = {
-    us_west_1 = "ami-824c4ee2"
-    us_east_1 = "ami-97785bed"
-    eu_central_1 = "ami-5652ce39"
-  }
-}
