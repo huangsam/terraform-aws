@@ -38,8 +38,8 @@ After you verify that it works, feel free to remove the resources:
 
     make destroy
 
-### Side Note
+### Side notes
 
 These Terraform artifacts ultimately publish their state to S3 using the storage backend configuration from `backend.ini`.
 
-**Note:** Please ensure that `~/.aws` has the proper credentials if you plan to leave out the `access_key` and `secret_key` parameters. Also ensure that your user is authorized to perform list, get and put operations on the S3 bucket of your choice.
+Please ensure that `~/.aws` has the proper credentials if you plan to leave out the `access_key` and `secret_key` parameters. Also ensure that your user is authorized to perform list, get and put operations on the S3 bucket of your choice.
