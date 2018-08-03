@@ -34,7 +34,7 @@ The `vpc` module creates the following resources:
 
 ## Usage
 
-Place placeholder settings into the working directory:
+Import placeholder settings into the working directory:
 
     make config
 
