@@ -10,6 +10,11 @@ variable "tags" {
   type = "map"
 }
 
+variable "zones" {
+  description = "IDs for availability zones in region"
+  type = "list"
+}
+
 /**
  * VPC settings
  *

@@ -179,7 +179,7 @@ resource "aws_route_table_association" "nat_2" {
 resource "aws_subnet" "public_1" {
   vpc_id = "${aws_vpc.main.id}"
   cidr_block = "${var.vpc_subnet_cidrs["public_1"]}"
-  availability_zone = "${data.aws_availability_zones.available.names[0]}"
+  availability_zone = "${var.zones[0]}"
   map_public_ip_on_launch = true
   tags = "${merge(
     var.tags,
@@ -192,7 +192,7 @@ resource "aws_subnet" "public_1" {
 resource "aws_subnet" "private_1" {
   vpc_id = "${aws_vpc.main.id}"
   cidr_block = "${var.vpc_subnet_cidrs["private_1"]}"
-  availability_zone = "${data.aws_availability_zones.available.names[0]}"
+  availability_zone = "${var.zones[0]}"
   map_public_ip_on_launch = false
   tags = "${merge(
     var.tags,
@@ -205,7 +205,7 @@ resource "aws_subnet" "private_1" {
 resource "aws_subnet" "public_2" {
   vpc_id = "${aws_vpc.main.id}"
   cidr_block = "${var.vpc_subnet_cidrs["public_2"]}"
-  availability_zone = "${data.aws_availability_zones.available.names[1]}"
+  availability_zone = "${var.zones[1]}"
   map_public_ip_on_launch = true
   tags = "${merge(
     var.tags,
@@ -218,7 +218,7 @@ resource "aws_subnet" "public_2" {
 resource "aws_subnet" "private_2" {
   vpc_id = "${aws_vpc.main.id}"
   cidr_block = "${var.vpc_subnet_cidrs["private_2"]}"
-  availability_zone = "${data.aws_availability_zones.available.names[1]}"
+  availability_zone = "${var.zones[1]}"
   map_public_ip_on_launch = false
   tags = "${merge(
     var.tags,

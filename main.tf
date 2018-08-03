@@ -12,4 +12,5 @@ module "vpc" {
   vpc_cidr = "${var.cidr}"
   vpc_subnet_cidrs = "${var.vpc_subnet_cidrs}"
   tags = "${local.common_tags}"
+  zones = "${data.aws_availability_zones.available.names}"
 }
