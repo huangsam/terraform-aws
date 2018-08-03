@@ -40,6 +40,8 @@ From there you can run any Terraform commands. Here are some common ones:
     terraform apply
     terraform destroy
 
+[Click here](https://www.terraform.io/docs/commands/index.html) to learn more about the other commands that are available from the Terraform CLI.
+
 ### Side notes
 
 These Terraform artifacts ultimately publish their state to S3 using the storage backend configuration from `backend.ini`.
