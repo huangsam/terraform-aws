@@ -16,6 +16,7 @@ output "public_subnets" {
 output "security_groups" {
   description = "Security group IDs by role"
   value = {
+    bastion = "${aws_security_group.bastion.id}"
     web = "${aws_security_group.web.id}"
     app = "${aws_security_group.app.id}"
     db = "${aws_security_group.db.id}"
