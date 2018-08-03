@@ -1,4 +1,4 @@
-/*
+/**
  * Global settings
  *
  * Anything that is related to the AWS account and global

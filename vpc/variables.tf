@@ -1,4 +1,4 @@
-/*
+/**
  * Global settings
  *
  * Anything that is related to the AWS account and global
@@ -10,7 +10,7 @@ variable "tags" {
   type = "map"
 }
 
-/*
+/**
  * VPC settings
  *
  * Includes the name and CIDR notation of various resources

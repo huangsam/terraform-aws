@@ -1,4 +1,4 @@
-/*
+/**
  * AWS VPC
  *
  * Everything revolves around this entity. Ideally the VPC
@@ -18,7 +18,7 @@ resource "aws_vpc" "main" {
   )}"
 }
 
-/*
+/**
  * AWS Routing (Public)
  *
  * Spans internet gateways, route tables and their respective
@@ -64,7 +64,7 @@ resource "aws_route_table_association" "public_2" {
   route_table_id = "${aws_route_table.web.id}"
 }
 
-/*
+/**
  * AWS Routing (Private)
  *
  * Spans NAT gateways, route tables and their respective
@@ -168,7 +168,7 @@ resource "aws_route_table_association" "nat_2" {
   route_table_id = "${aws_route_table.nat_2.id}"
 }
 
-/*
+/**
  * AWS Subnets
  *
  * A set of subnets that are being used for the VPC.
@@ -228,7 +228,7 @@ resource "aws_subnet" "private_2" {
   )}"
 }
 
-/*
+/**
  * AWS Network ACLs
  *
  * A set of egress and ingress rules for various subnets
@@ -268,7 +268,7 @@ resource "aws_network_acl" "simple" {
   )}"
 }
 
-/*
+/**
  * AWS Security Groups
  *
  * We have the following profiles:

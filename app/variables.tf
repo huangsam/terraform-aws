@@ -1,4 +1,4 @@
-/*
+/**
  * Global settings
  *
  * Anything that is related to the AWS account and global
@@ -7,7 +7,7 @@
 
 variable "region" {}
 
-/*
+/**
  * AMI mappings
  *
  * A provider publishes the same AMI distribution to multiple
