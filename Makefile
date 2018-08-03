@@ -8,7 +8,3 @@ config: clean-config
 	cp config/template.ini backend.ini
 init: clean-terra
 	terraform init -backend-config=backend.ini
-deploy:
-	terraform apply
-destroy:
-	terraform destroy

@@ -26,17 +26,19 @@ Gateway and additional subnets if needed.
 
 ## Usage
 
-First get the settings placed in the working directory:
+Place placeholder settings into the working directory:
 
     make config
 
-After populating the settings properly, go ahead and initialize the workspace:
+You will be given `terraform.tfvars` and `backend.ini` which represent settings for inputs and state storage. After configuring both files, go ahead and initialize the workspace:
 
-    make deploy
+    make init
 
-After you verify that it works, feel free to remove the resources:
+From there you can run any Terraform commands. Here are some common ones:
 
-    make destroy
+    terraform plan
+    terraform apply
+    terraform destroy
 
 ### Side notes
 
