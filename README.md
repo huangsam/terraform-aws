@@ -6,9 +6,7 @@ This is a playground for learning AWS and Terraform tooling.
 
 ### VPC module
 
-The `vpc` module was inspired by a [similar initiative from the Terraform maintainers](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/1.37.0).
-
-The custom `vpc` module creates the following:
+The `vpc` module creates the following resources:
 
 - VPC
 - Internet gateway
@@ -19,10 +17,13 @@ The custom `vpc` module creates the following:
 - Simple network ACL for all subnets
 - Security groups for common EC2 use cases
 
-**Note:** The VPC is currently configured to support exactly two
-availability zones. This works fine for personal pet projects but this
-may not be enough for enterprise use cases. Consider adding a Virtual Private
-Gateway and additional subnets if needed.
+### Side notes
+
+[Click here](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/1.37.0) to see a similar implementation from the Terraform maintainers. Here are some noteworthy differences concerning their module:
+
+- Supports variable availability zones
+- Does not create security groups out of the box
+- Relies on the default network ACL
 
 ## Usage
 
