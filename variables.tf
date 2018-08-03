@@ -1,6 +1,12 @@
 variable "region" {}
 
-variable "vpc_cidr" {}
+variable "name" {}
+
+variable "cidr" {}
+
+variable "tags" {
+  type = "map"
+}
 
 variable "vpc_subnet_cidrs" {
   type = "map"

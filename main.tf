@@ -6,11 +6,10 @@ provider "aws" {
   region = "${var.region}"
 }
 
-module "my_vpc" {
+module "vpc" {
   source = "./vpc"
-  region = "${var.region}"
-  project_name = "mvp"
-  environment = "production"
-  owner_name = "samhuang"
+  vpc_name = "${var.name}"
+  vpc_cidr = "${var.cidr}"
   vpc_subnet_cidrs = "${var.vpc_subnet_cidrs}"
+  tags = "${local.common_tags}"
 }

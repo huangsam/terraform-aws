@@ -11,9 +11,9 @@ resource "aws_vpc" "main" {
   enable_dns_support = true
   enable_dns_hostnames = true
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_name}"
+      "Name", "${var.vpc_name}"
     )
   )}"
 }
@@ -29,9 +29,9 @@ resource "aws_vpc" "main" {
 resource "aws_internet_gateway" "main" {
   vpc_id = "${aws_vpc.main.id}"
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_igw_name}"
+      "Name", "${var.vpc_name}-${var.vpc_igw_name}"
     )
   )}"
 }
@@ -47,9 +47,9 @@ resource "aws_route_table" "web" {
     gateway_id = "${aws_internet_gateway.main.id}"
   }
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_rt_names["web"]}"
+      "Name", "${var.vpc_name}-${var.vpc_rt_names["web"]}"
     )
   )}"
 }
@@ -83,9 +83,9 @@ resource "aws_route_table_association" "public_2" {
 resource "aws_route_table" "nat_1" {
   vpc_id = "${aws_vpc.main.id}"
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_rt_names["nat_1"]}"
+      "Name", "${var.vpc_name}-${var.vpc_rt_names["nat_1"]}"
     )
   )}"
 }
@@ -94,9 +94,9 @@ resource "aws_eip" "nat_1" {
   vpc      = true
   depends_on = ["aws_internet_gateway.main"]
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_eip_names["nat_1"]}"
+      "Name", "${var.vpc_name}-${var.vpc_eip_names["nat_1"]}"
     )
   )}"
 }
@@ -106,9 +106,9 @@ resource "aws_nat_gateway" "nat_1" {
   subnet_id = "${aws_subnet.public_1.id}"
   depends_on = ["aws_internet_gateway.main"]
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_nat_names["nat_1"]}"
+      "Name", "${var.vpc_name}-${var.vpc_nat_names["nat_1"]}"
     )
   )}"
 }
@@ -127,9 +127,9 @@ resource "aws_route_table_association" "nat_1" {
 resource "aws_route_table" "nat_2" {
   vpc_id = "${aws_vpc.main.id}"
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_rt_names["nat_2"]}"
+      "Name", "${var.vpc_name}-${var.vpc_rt_names["nat_2"]}"
     )
   )}"
 }
@@ -138,9 +138,9 @@ resource "aws_eip" "nat_2" {
   vpc      = true
   depends_on = ["aws_internet_gateway.main"]
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_eip_names["nat_2"]}"
+      "Name", "${var.vpc_name}-${var.vpc_eip_names["nat_2"]}"
     )
   )}"
 }
@@ -150,9 +150,9 @@ resource "aws_nat_gateway" "nat_2" {
   subnet_id = "${aws_subnet.public_2.id}"
   depends_on = ["aws_internet_gateway.main"]
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_nat_names["nat_2"]}"
+      "Name", "${var.vpc_name}-${var.vpc_nat_names["nat_2"]}"
     )
   )}"
 }
@@ -182,9 +182,9 @@ resource "aws_subnet" "public_1" {
   availability_zone = "${data.aws_availability_zones.available.names[0]}"
   map_public_ip_on_launch = true
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_subnet_names["public_1"]}"
+      "Name", "${var.vpc_name}-${var.vpc_subnet_names["public_1"]}"
     )
   )}"
 }
@@ -195,9 +195,9 @@ resource "aws_subnet" "private_1" {
   availability_zone = "${data.aws_availability_zones.available.names[0]}"
   map_public_ip_on_launch = false
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_subnet_names["private_1"]}"
+      "Name", "${var.vpc_name}-${var.vpc_subnet_names["private_1"]}"
     )
   )}"
 }
@@ -208,9 +208,9 @@ resource "aws_subnet" "public_2" {
   availability_zone = "${data.aws_availability_zones.available.names[1]}"
   map_public_ip_on_launch = true
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_subnet_names["public_2"]}"
+      "Name", "${var.vpc_name}-${var.vpc_subnet_names["public_2"]}"
     )
   )}"
 }
@@ -221,9 +221,9 @@ resource "aws_subnet" "private_2" {
   availability_zone = "${data.aws_availability_zones.available.names[1]}"
   map_public_ip_on_launch = false
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_subnet_names["private_2"]}"
+      "Name", "${var.vpc_name}-${var.vpc_subnet_names["private_2"]}"
     )
   )}"
 }
@@ -261,9 +261,9 @@ resource "aws_network_acl" "simple" {
     protocol = "-1"
   }
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_nacl_names["simple"]}"
+      "Name", "${var.vpc_name}-${var.vpc_nacl_names["simple"]}"
     )
   )}"
 }
@@ -285,7 +285,7 @@ resource "aws_network_acl" "simple" {
 
 resource "aws_security_group" "bastion" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names["bastion"]}"
+  name = "${var.vpc_name}-${var.vpc_sg_names["bastion"]}"
   description = "Security group for bastions"
   ingress {
     from_port = 22
@@ -306,16 +306,16 @@ resource "aws_security_group" "bastion" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names["bastion"]}"
+      "Name", "${var.vpc_name}-${var.vpc_sg_names["bastion"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "web" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names["web"]}"
+  name = "${var.vpc_name}-${var.vpc_sg_names["web"]}"
   description = "Security group for web servers"
   ingress {
     from_port = 22
@@ -366,16 +366,16 @@ resource "aws_security_group" "web" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names["web"]}"
+      "Name", "${var.vpc_name}-${var.vpc_sg_names["web"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "app" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names["app"]}"
+  name = "${var.vpc_name}-${var.vpc_sg_names["app"]}"
   description = "Security group for applications"
   ingress {
     from_port = 22
@@ -420,16 +420,16 @@ resource "aws_security_group" "app" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names["app"]}"
+      "Name", "${var.vpc_name}-${var.vpc_sg_names["app"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "db" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names["db"]}"
+  name = "${var.vpc_name}-${var.vpc_sg_names["db"]}"
   description = "Security group for databases"
   ingress {
     from_port = 22
@@ -474,16 +474,16 @@ resource "aws_security_group" "db" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names["db"]}"
+      "Name", "${var.vpc_name}-${var.vpc_sg_names["db"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "cache" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names["cache"]}"
+  name = "${var.vpc_name}-${var.vpc_sg_names["cache"]}"
   description = "Security group for caches"
   ingress {
     from_port = 22
@@ -528,16 +528,16 @@ resource "aws_security_group" "cache" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names["cache"]}"
+      "Name", "${var.vpc_name}-${var.vpc_sg_names["cache"]}"
     )
   )}"
 }
 
 resource "aws_security_group" "queue" {
   vpc_id = "${aws_vpc.main.id}"
-  name = "${local.name_prefix}-${var.vpc_sg_names["queue"]}"
+  name = "${var.vpc_name}-${var.vpc_sg_names["queue"]}"
   description = "Security group for queues"
   ingress {
     from_port = 22
@@ -582,9 +582,9 @@ resource "aws_security_group" "queue" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
   tags = "${merge(
-    local.common_tags,
+    var.tags,
     map(
-      "Name", "${local.name_prefix}-${var.vpc_sg_names["queue"]}"
+      "Name", "${var.vpc_name}-${var.vpc_sg_names["queue"]}"
     )
   )}"
 }

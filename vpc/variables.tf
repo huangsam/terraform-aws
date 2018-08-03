@@ -5,25 +5,9 @@
  * constructs such as regions and availability zones.
  */
 
-variable "region" {
-  description = "Name of the AWS region"
-}
-
-variable "owner_name" {
-  description = "Name of primary owner on AWS"
-}
-
-variable "project_name" {
-  description = "Name of project these resources fall under"
-}
-
-variable "environment" {
-  description = "Name of the environment lifecycle"
-}
-
-variable "name_prefix" {
-  description = "Name of prefix applied to resource names"
-  default = ""
+variable "tags" {
+  description = "Tag set applied to module resources"
+  type = "map"
 }
 
 /*

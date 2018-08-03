@@ -1,6 +1,13 @@
 region = "us-west-1"
 
-vpc_cidr = "10.0.0.0/16"
+name = "mvp"
+
+cidr = "10.0.0.0/16"
+
+tags = {
+  Environment = "production"
+  Project = "mvp"
+}
 
 vpc_subnet_cidrs = {
   public_1 = "10.0.0.0/20"
