@@ -26,7 +26,7 @@ Gateway and additional subnets if needed.
 
 ## Usage
 
-First get the settings placed to the working directory:
+First get the settings placed in the working directory:
 
     make config
 
