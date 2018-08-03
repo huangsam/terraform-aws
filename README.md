@@ -17,7 +17,7 @@ The `vpc` module creates the following resources:
 - Simple network ACL for all subnets
 - Security groups for common EC2 use cases
 
-### Side notes
+#### Side notes
 
 [Click here](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/1.37.0) to see a similar implementation from the Terraform maintainers. Here are some noteworthy differences concerning their module:
 
