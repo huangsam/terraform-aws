@@ -12,13 +12,3 @@ variable "tags" {
 }
 
 variable "key_name" {}
-
-variable "db_name" {}
-
-variable "db_username" {}
-
-variable "db_password" {}
-
-variable "bastion_profile" {}
-
-variable "app_profile" {}
