@@ -99,7 +99,6 @@ variable "vpc_sg_names" {
   type = "map"
   default = {
     bastion = "sg-bastion"
-    web = "sg-web"
     app = "sg-app"
     db = "sg-db"
     cache = "sg-cache"

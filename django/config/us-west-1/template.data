@@ -1,0 +1,10 @@
+data "aws_availability_zones" "available" {}
+
+data "terraform_remote_state" "vpc" {
+  backend = "s3"
+  config {
+    bucket = "mybucket"
+    key = "path/to/my/key"
+    region = "us-west-1"
+  }
+}

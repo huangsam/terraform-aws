@@ -313,66 +313,6 @@ resource "aws_security_group" "bastion" {
   )}"
 }
 
-resource "aws_security_group" "web" {
-  vpc_id = "${aws_vpc.main.id}"
-  name = "${var.vpc_name}-${var.vpc_sg_names["web"]}"
-  description = "Security group for web servers"
-  ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-    security_groups = ["${aws_security_group.bastion.id}"]
-  }
-  ingress {
-    from_port = -1
-    to_port = -1
-    protocol = "icmp"
-    cidr_blocks = ["${var.vpc_cidr}"]
-  }
-  ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = -1
-    to_port = -1
-    protocol = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = ["${var.vpc_cidr}"]
-  }
-  tags = "${merge(
-    var.tags,
-    map(
-      "Name", "${var.vpc_name}-${var.vpc_sg_names["web"]}"
-    )
-  )}"
-}
-
 resource "aws_security_group" "app" {
   vpc_id = "${aws_vpc.main.id}"
   name = "${var.vpc_name}-${var.vpc_sg_names["app"]}"
@@ -390,34 +330,22 @@ resource "aws_security_group" "app" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
   ingress {
-    from_port = 8000
-    to_port = 8000
-    protocol = "tcp"
-    security_groups = ["${aws_security_group.web.id}"]
-  }
-  egress {
     from_port = 80
     to_port = 80
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  egress {
+  ingress {
     from_port = 443
     to_port = 443
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
-    from_port = -1
-    to_port = -1
-    protocol = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = ["${var.vpc_cidr}"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = "${merge(
     var.tags,
@@ -450,28 +378,10 @@ resource "aws_security_group" "db" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = -1
-    to_port = -1
-    protocol = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = ["${var.vpc_cidr}"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = "${merge(
     var.tags,
@@ -499,33 +409,17 @@ resource "aws_security_group" "cache" {
   }
   ingress {
     from_port = 6379
-    to_port = 6379
+    to_port = 6380
     protocol = "tcp"
     security_groups = ["${aws_security_group.app.id}"]
-  }
-  egress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = -1
-    to_port = -1
-    protocol = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
+    /** Peer discovery */
+    self = true
   }
   egress {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = ["${var.vpc_cidr}"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = "${merge(
     var.tags,
@@ -552,34 +446,23 @@ resource "aws_security_group" "queue" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
   ingress {
-    from_port = 5672
+    from_port = 4369
+    to_port = 4369
+    protocol = "tcp"
+    /** Peer discovery */
+    self = true
+  }
+  ingress {
+    from_port = 5671
     to_port = 5672
     protocol = "tcp"
     security_groups = ["${aws_security_group.app.id}"]
   }
   egress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port = -1
-    to_port = -1
-    protocol = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = ["${var.vpc_cidr}"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = "${merge(
     var.tags,
