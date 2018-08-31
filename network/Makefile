@@ -9,7 +9,7 @@ config-us: clean-config
 	cp config/us-west-1/template.tfvars terraform.tfvars
 	cp config/us-west-1/template.ini backend.ini
 init: clean-terra
-	terraform init
+	terraform init -backend-config=backend.ini
 plan:
 	terraform plan
 apply:
