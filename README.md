@@ -9,4 +9,4 @@ This repository currently supports the following projects:
 - `django`
 - `network`
 
-Keep in mind that the base `main.tf` publishes state to S3. Please verify that the machine running Terraform has proper IAM credentials and the associated IAM user can perform list, get and put operations on the bucket.
+Running a Terraform deployments should trigger an action to publish state to S3. Please verify that Terraform machine has proper IAM credentials to perform list, get and put operations for S3.
