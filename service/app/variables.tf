@@ -36,33 +36,6 @@ variable "key_name" {
   description = "Name of key used to control login access to EC2 instances"
 }
 
-variable "bastion_profile" {
-  description = "Name of IAM role used for bastion instances"
-}
-
-variable "app_profile" {
-  description = "Name of IAM role used for application instances"
-}
-
-/**
- * RDS settings
- *
- * Anything related directly to database creation. Examples include
- * database username and password.
- */
-
-variable "db_name" {
-  description = "Database to create when DB instance is created"
-}
-
-variable "db_username" {
-  description = "Username of RDS user"
-}
-
-variable "db_password" {
-  description = "Password of RDS user"
-}
-
 /**
  * AMI mappings
  *
