@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "http" {
   protocol = "HTTP"
   vpc_id = "${var.vpc_id}"
   health_check {
-    path = "/api/"
+    path = "/"
     interval = 30
     timeout = 5
     healthy_threshold = 3
@@ -55,7 +55,6 @@ resource "aws_launch_configuration" "app" {
   name_prefix = "ec2-lc-app-"
   image_id = "${lookup(var.ec2_amazon_amis, var.region)}"
   instance_type = "t2.medium"
-  iam_instance_profile = "${var.app_profile}"
   key_name = "${var.key_name}"
   security_groups = ["${var.security_groups["app"]}"]
   user_data = "${base64encode(file("scripts/app.sh"))}"
@@ -83,7 +82,6 @@ resource "aws_autoscaling_group" "app" {
 resource "aws_instance" "bastion" {
   ami = "${lookup(var.ec2_amazon_amis, var.region)}"
   instance_type = "t2.micro"
-  iam_instance_profile = "${var.bastion_profile}"
   key_name = "${var.key_name}"
   vpc_security_group_ids = ["${var.security_groups["bastion"]}"]
   subnet_id = "${var.public_subnets[0]}"
@@ -91,56 +89,4 @@ resource "aws_instance" "bastion" {
   tags {
     Name = "ec2-bastion"
   }
-}
-
-/**
- * AWS RDS resources
- *
- * We plan to use the DB security group for this use case.
- * We'll be creating a DB subnet group that spans the two
- * public subnets in AZ 1 and AZ 2. We'll also create a DB subnet
- * group that spans the two private subnets in AZ 1 and AZ 2.
- *
- * We plan to create two RDS instances. One that spans the public
- * DB subnet group. And another one that spans the private DB subnet group.
- * The flavor of PostgreSQL will be 10.4
- *
- * NOTE: t2.* instances do not support encrypted data.
- */
-
-resource "aws_db_subnet_group" "public" {
-  name = "rds-sng-public"
-  description = "RDS subnet group for public subnets"
-  subnet_ids = ["${var.public_subnets}"]
-  tags = "${var.tags}"
-}
-
-resource "aws_db_subnet_group" "private" {
-  name = "rds-sng-private"
-  description = "RDS subnet group for private subnets"
-  subnet_ids = ["${var.private_subnets}"]
-  tags = "${var.tags}"
-}
-
-resource "aws_db_instance" "main" {
-  storage_type = "gp2"
-  engine = "postgres"
-  engine_version = "10.4"
-  instance_class = "db.m4.large"
-  allocated_storage = 100
-  db_subnet_group_name = "${aws_db_subnet_group.private.name}"
-  vpc_security_group_ids = ["${var.security_groups["db"]}"]
-  backup_retention_period = 7
-  maintenance_window = "Mon:00:00-Mon:03:00"
-  monitoring_interval = 0
-  name = "${var.db_name}"
-  username = "${var.db_username}"
-  password = "${var.db_password}"
-  parameter_group_name = "default.postgres10"
-  apply_immediately = true
-  auto_minor_version_upgrade = true
-  identifier = "rds-main-${var.region}"
-  final_snapshot_identifier = "rds-main-${var.region}"
-  skip_final_snapshot = false
-  tags = "${var.tags}"
 }
