@@ -16,26 +16,26 @@
     "default": {
         "awscli": {
             "hashes": [
-                "sha256:2315b5c073916811fff6af0f09f8dd8aa0d5bf875320ce92492b078fe398e481",
-                "sha256:8986135d67445ca5eddbf6ba7bd0aa60ada7b87f1eb5c33e99afd6c1593d1dff"
+                "sha256:26550b681108de11990fa02d77a3584f2dcf5295da9f8405ef240ddd67a9edb7",
+                "sha256:ae3ea09dc06a6dd2e95cb76c8aad8ec2d5d5cf217a848e080dc2db3ded163cd6"
             ],
             "index": "pypi",
-            "version": "==1.16.26"
+            "version": "==1.16.40"
         },
         "boto3": {
             "hashes": [
-                "sha256:7d2ae0a759ede09474387dae246d8fe9c1f07e98fa3366ebffd0536571558261",
-                "sha256:abc08c826c0628cb22fee2a2a5a21bad6a7f261042c652e4f994f376333cf52c"
+                "sha256:1837a4eaaa6705e69fa24ebf4387eb1c9ab6ccf554d672291479d6ebc497a885",
+                "sha256:3b782268ebf09ae6ea811ba8b8bdfc38a58d27f4f7fc554658f07c11ddc4165d"
             ],
             "index": "pypi",
-            "version": "==1.9.16"
+            "version": "==1.9.30"
         },
         "botocore": {
             "hashes": [
-                "sha256:1a80610b35a85825224e34c48e3d47660c728f63b8ab0c5a0ca49629686e2f41",
-                "sha256:1f4f69e1403462c2d37967ce4bbdd0affe90e8a91899a340e59ee952552c5b09"
+                "sha256:5b371508cbb8511592b754d542bd128194585125b4f41914097abb689d135575",
+                "sha256:5e1210f096637479061ebeb3640d0ba5bcdbfe385e36bd3132289d2d26ae83f6"
             ],
-            "version": "==1.12.16"
+            "version": "==1.12.30"
         },
         "colorama": {
             "hashes": [
@@ -113,11 +113,11 @@
         },
         "urllib3": {
             "hashes": [
-                "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
-                "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
+                "sha256:41c3db2fc01e5b907288010dec72f9d0a74e37d6994e6eb56849f59fea2265ae",
+                "sha256:8819bba37a02d143296a4d032373c4dd4aca11f6d4c9973335ca75f9c8475f59"
             ],
-            "markers": "python_version != '3.2.*' and python_version != '3.1.*' and python_version != '3.0.*' and python_version < '4' and python_version >= '2.6' and python_version != '3.3.*'",
-            "version": "==1.23"
+            "markers": "python_version >= '3.4'",
+            "version": "==1.24"
         }
     },
     "develop": {}
