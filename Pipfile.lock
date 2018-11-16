@@ -1,10 +1,12 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0a212ccbe491167fa41996050bdf5b19415513d8eb8535b21a36bd6e5393e65b"
+            "sha256": "5eae8a42fb91b34b35cf3ba405314f63e983075a4da174b7272a1e32a717b666"
         },
         "pipfile-spec": 6,
-        "requires": {},
+        "requires": {
+            "python_version": "3"
+        },
         "sources": [
             {
                 "name": "pypi",
@@ -16,26 +18,26 @@
     "default": {
         "awscli": {
             "hashes": [
-                "sha256:993d12cf2312d637f460a5583efc6b8051d8b6bf732a7153d1d8ee18d76ad4a7",
-                "sha256:bfedc98f331a82b70918d6776365d8503f517b6cc4c1bf175fcdc1a1ee273db0"
+                "sha256:c4cc8a3c2e0f7539247e8eb5a0cafcf9b822cac95e31bc5da28f28bb90e1c0a5",
+                "sha256:e486de17601c6de4af82a2fd1ab68cef05d939114fa7964e764ef8b468edeb8a"
             ],
             "index": "pypi",
-            "version": "==1.16.50"
+            "version": "==1.16.56"
         },
         "boto3": {
             "hashes": [
-                "sha256:0daae195b2b2f7a7ae6b888ff9dd3f9bf6c339522924f5d73f1ddfc44f07a3f5",
-                "sha256:d97f89a8d1a50377cbb7eca15040e65cd1a97d049e7396757fef00d08db9f285"
+                "sha256:477d2837ae31269c9a8994d449f61cac26d0669b080504898240600afe044cc5",
+                "sha256:c6b016e59819a276ce0000477025bd2142776bcd573ae315194eb7bc1e13b711"
             ],
             "index": "pypi",
-            "version": "==1.9.40"
+            "version": "==1.9.46"
         },
         "botocore": {
             "hashes": [
-                "sha256:ad7f7e11aa5927a41e00b398b2c77f49d9f04da3fc509c0378f54973bb8a3421",
-                "sha256:cd01d12bd983c132d53b839097f6d7a9bda0d31d9dd0cb9b86566680efdad24a"
+                "sha256:aabce87b8f01745712ac4b0504ce8dc119d39e67ffc05ab2ef05b417e3ca0de5",
+                "sha256:cb518da8f2d6c5a4f499261e8ab52e149c016b805bca8c104b38dda106d27ff5"
             ],
-            "version": "==1.12.40"
+            "version": "==1.12.46"
         },
         "colorama": {
             "hashes": [
