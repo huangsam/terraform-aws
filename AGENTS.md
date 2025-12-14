@@ -59,13 +59,14 @@ This document describes the agents (modules) in the Terraform AWS infrastructure
 
 - **Application Load Balancer (ALB)**: Public-facing load balancer for HTTP traffic.
 - **Target Group**: HTTP target group with health checks on port 80.
-- **Launch Configuration**: EC2 launch configuration for t2.medium instances with Amazon Linux AMI, Docker, and Nginx setup.
+- **Launch Configuration**: EC2 `t2.medium` instances with Amazon Linux AMI, Docker, and Nginx setup.
 - **Auto Scaling Group**: ASG with 1-3 instances, targeting private subnets, attached to the target group.
 - **Bastion Instance**: t2.micro instance in public subnet for SSH access to private resources.
 
 ### User Data Script
 
 The launch configuration uses `scripts/app.sh` which:
+
 - Installs Docker and Docker Compose
 - Pulls and runs Nginx container on port 80
 
